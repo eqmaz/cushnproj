@@ -25,24 +25,26 @@ headingLevel: 2
 
 <h1 id="simple-api-default">Default</h1>
 
-## get__items
+## GetIsaFundList
+
+<a id="opIdGetIsaFundList"></a>
 
 > Code samples
 
 ```shell
 # You can also use wget
-curl -X GET /items
+curl -X GET /isa-funds
 
 ```
 
 ```http
-GET /items HTTP/1.1
+GET /isa-funds HTTP/1.1
 
 ```
 
 ```javascript
 
-fetch('/items',
+fetch('/isa-funds',
 {
   method: 'GET'
 
@@ -59,7 +61,7 @@ fetch('/items',
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '/items',
+result = RestClient.get '/isa-funds',
   params: {
   }
 
@@ -70,7 +72,7 @@ p JSON.parse(result)
 ```python
 import requests
 
-r = requests.get('/items')
+r = requests.get('/isa-funds')
 
 print(r.json())
 
@@ -87,7 +89,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('GET','/items', array(
+    $response = $client->request('GET','/isa-funds', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -104,7 +106,7 @@ try {
 ```
 
 ```java
-URL obj = new URL("/items");
+URL obj = new URL("/isa-funds");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -131,7 +133,7 @@ import (
 func main() {
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/items", data)
+    req, err := http.NewRequest("GET", "/isa-funds", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -141,11 +143,13 @@ func main() {
 
 ```
 
-`GET /items`
+`GET /isa-funds`
 
-*List items*
+*List of ISA funds*
 
-<h3 id="get__items-responses">Responses</h3>
+A list of Funds compatible with ISA products
+
+<h3 id="getisafundlist-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -155,27 +159,35 @@ func main() {
 This operation does not require authentication
 </aside>
 
-## post__items
+## get__user_product_available
 
 > Code samples
 
 ```shell
 # You can also use wget
-curl -X POST /items
+curl -X GET /user/product/available \
+  -H 'Accept: application/json'
 
 ```
 
 ```http
-POST /items HTTP/1.1
+GET /user/product/available HTTP/1.1
+
+Accept: application/json
 
 ```
 
 ```javascript
 
-fetch('/items',
-{
-  method: 'POST'
+const headers = {
+  'Accept':'application/json'
+};
 
+fetch('/user/product/available',
+{
+  method: 'GET',
+
+  headers: headers
 })
 .then(function(res) {
     return res.json();
@@ -189,9 +201,13 @@ fetch('/items',
 require 'rest-client'
 require 'json'
 
-result = RestClient.post '/items',
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get '/user/product/available',
   params: {
-  }
+  }, headers: headers
 
 p JSON.parse(result)
 
@@ -199,8 +215,11 @@ p JSON.parse(result)
 
 ```python
 import requests
+headers = {
+  'Accept': 'application/json'
+}
 
-r = requests.post('/items')
+r = requests.get('/user/product/available', headers = headers)
 
 print(r.json())
 
@@ -211,13 +230,17 @@ print(r.json())
 
 require 'vendor/autoload.php';
 
+$headers = array(
+    'Accept' => 'application/json',
+);
+
 $client = new \GuzzleHttp\Client();
 
 // Define array of request body.
 $request_body = array();
 
 try {
-    $response = $client->request('POST','/items', array(
+    $response = $client->request('GET','/user/product/available', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -234,7 +257,338 @@ try {
 ```
 
 ```java
-URL obj = new URL("/items");
+URL obj = new URL("/user/product/available");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/user/product/available", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /user/product/available`
+
+*Products available for the user*
+
+A list of products that the user can open accounts for
+
+> Example responses
+
+<h3 id="get__user_product_available-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|None|
+
+<h3 id="get__user_product_available-responseschema">Response Schema</h3>
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetUserAccountBalances
+
+<a id="opIdGetUserAccountBalances"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET /user/account/balances \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET /user/account/balances HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('/user/account/balances',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get '/user/account/balances',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('/user/account/balances', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/user/account/balances', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("/user/account/balances");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/user/account/balances", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /user/account/balances`
+
+*List user's account balances*
+
+A list of the user's account balances across all products
+
+> Example responses
+
+<h3 id="getuseraccountbalances-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|None|
+
+<h3 id="getuseraccountbalances-responseschema">Response Schema</h3>
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## UserCheckDepositAmount
+
+<a id="opIdUserCheckDepositAmount"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST /user/account/check-deposit \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+
+```
+
+```http
+POST /user/account/check-deposit HTTP/1.1
+
+Content-Type: application/json
+Accept: application/json
+
+```
+
+```javascript
+const inputBody = '{
+  "account_id": 0,
+  "amount": 0
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
+
+fetch('/user/account/check-deposit',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json',
+  'Accept' => 'application/json'
+}
+
+result = RestClient.post '/user/account/check-deposit',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+r = requests.post('/user/account/check-deposit', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/user/account/check-deposit', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("/user/account/check-deposit");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -260,8 +614,13 @@ import (
 
 func main() {
 
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/items", data)
+    req, err := http.NewRequest("POST", "/user/account/check-deposit", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -271,41 +630,85 @@ func main() {
 
 ```
 
-`POST /items`
+`POST /user/account/check-deposit`
 
-*Create an item*
+*Check if user can invest the desired amount*
 
-<h3 id="post__items-responses">Responses</h3>
+Checks if the user's desired deposit amount is within the allowed limits
+
+> Body parameter
+
+```json
+{
+  "account_id": 0,
+  "amount": 0
+}
+```
+
+<h3 id="usercheckdepositamount-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|none|
+|» account_id|body|integer|true|none|
+|» amount|body|number|true|none|
+
+> Example responses
+
+<h3 id="usercheckdepositamount-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|Created|None|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|None|
+
+<h3 id="usercheckdepositamount-responseschema">Response Schema</h3>
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## put__items_{id}
+## OpenRetailAccount
+
+<a id="opIdOpenRetailAccount"></a>
 
 > Code samples
 
 ```shell
 # You can also use wget
-curl -X PUT /items/{id}
+curl -X POST /user/account/open-retail \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
 
 ```
 
 ```http
-PUT /items/{id} HTTP/1.1
+POST /user/account/open-retail HTTP/1.1
+
+Content-Type: application/json
+Accept: application/json
 
 ```
 
 ```javascript
+const inputBody = '{
+  "product_uuid": "string",
+  "fund_uuids": [
+    {
+      "fund_uuid": "string",
+      "weight": 0
+    }
+  ]
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
 
-fetch('/items/{id}',
+fetch('/user/account/open-retail',
 {
-  method: 'PUT'
-
+  method: 'POST',
+  body: inputBody,
+  headers: headers
 })
 .then(function(res) {
     return res.json();
@@ -319,9 +722,14 @@ fetch('/items/{id}',
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '/items/{id}',
+headers = {
+  'Content-Type' => 'application/json',
+  'Accept' => 'application/json'
+}
+
+result = RestClient.post '/user/account/open-retail',
   params: {
-  }
+  }, headers: headers
 
 p JSON.parse(result)
 
@@ -329,8 +737,12 @@ p JSON.parse(result)
 
 ```python
 import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
 
-r = requests.put('/items/{id}')
+r = requests.post('/user/account/open-retail', headers = headers)
 
 print(r.json())
 
@@ -341,13 +753,18 @@ print(r.json())
 
 require 'vendor/autoload.php';
 
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+);
+
 $client = new \GuzzleHttp\Client();
 
 // Define array of request body.
 $request_body = array();
 
 try {
-    $response = $client->request('PUT','/items/{id}', array(
+    $response = $client->request('POST','/user/account/open-retail', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -364,9 +781,9 @@ try {
 ```
 
 ```java
-URL obj = new URL("/items/{id}");
+URL obj = new URL("/user/account/open-retail");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("PUT");
+con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
 BufferedReader in = new BufferedReader(
     new InputStreamReader(con.getInputStream()));
@@ -390,8 +807,13 @@ import (
 
 func main() {
 
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("PUT", "/items/{id}", data)
+    req, err := http.NewRequest("POST", "/user/account/open-retail", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -401,21 +823,45 @@ func main() {
 
 ```
 
-`PUT /items/{id}`
+`POST /user/account/open-retail`
 
-*Update an item*
+*Opens a new account*
 
-<h3 id="put__items_{id}-parameters">Parameters</h3>
+Opens a new account for the specified product and user
+
+> Body parameter
+
+```json
+{
+  "product_uuid": "string",
+  "fund_uuids": [
+    {
+      "fund_uuid": "string",
+      "weight": 0
+    }
+  ]
+}
+```
+
+<h3 id="openretailaccount-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|id|path|string|true|none|
+|body|body|object|true|none|
+|» product_uuid|body|string|true|none|
+|» fund_uuids|body|[object]|true|none|
+|»» fund_uuid|body|string|false|none|
+|»» weight|body|number|false|none|
 
-<h3 id="put__items_{id}-responses">Responses</h3>
+> Example responses
+
+<h3 id="openretailaccount-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|None|
+
+<h3 id="openretailaccount-responseschema">Response Schema</h3>
 
 <aside class="success">
 This operation does not require authentication
