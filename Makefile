@@ -155,5 +155,5 @@ migrate-down:
 
 # Run target (builds and runs the project after starting the database and running migrations)
 .PHONY: run
-run: build local-db-up migrate-up
+run: local-db-up build migrate-up
 	./$(BUILD_DIR)/$(BINARY_NAME)
