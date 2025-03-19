@@ -1,0 +1,174 @@
+{
+  "v": 6,
+  "name": "cushon",
+  "folders": [],
+  "requests": [
+    {
+      "v": "11",
+      "name": "products/available",
+      "method": "GET",
+      "endpoint": "http://127.0.01:8080/user/product/available",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1biI6ImFiY0BkZWYuY29tIiwicHciOiIxMTExMSIsImlhdCI6MTczOTA1NTk2NCwiZXhwIjoxNzM5MDU4NTY0fQ.QMMPGTZYuoG3Ud8d67QYM8gDqKm3DWg69n7Eoi84IKM",
+        "authActive": true
+      },
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "health-ping",
+      "method": "GET",
+      "endpoint": "http://127.0.01:8911/ping",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1biI6ImFiY0BkZWYuY29tIiwicHciOiIxMTExMSIsImlhdCI6MTczOTA1NTk2NCwiZXhwIjoxNzM5MDU4NTY0fQ.QMMPGTZYuoG3Ud8d67QYM8gDqKm3DWg69n7Eoi84IKM",
+        "authActive": true
+      },
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "health-check",
+      "method": "GET",
+      "endpoint": "http://127.0.01:8911/health",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1biI6ImFiY0BkZWYuY29tIiwicHciOiIxMTExMSIsImlhdCI6MTczOTA1NTk2NCwiZXhwIjoxNzM5MDU4NTY0fQ.QMMPGTZYuoG3Ud8d67QYM8gDqKm3DWg69n7Eoi84IKM",
+        "authActive": true
+      },
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "isa-funds",
+      "method": "GET",
+      "endpoint": "http://127.0.01:8080/isa-funds",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1biI6ImFiY0BkZWYuY29tIiwicHciOiIxMTExMSIsImlhdCI6MTczOTA1NTk2NCwiZXhwIjoxNzM5MDU4NTY0fQ.QMMPGTZYuoG3Ud8d67QYM8gDqKm3DWg69n7Eoi84IKM",
+        "authActive": true
+      },
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "/user/account/open",
+      "method": "POST",
+      "endpoint": "http://127.0.01:8080/user/account/open-retail",
+      "params": [],
+      "headers": [
+        {
+          "key": "userId",
+          "value": "1",
+          "active": true,
+          "description": ""
+        }
+      ],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1biI6ImFiY0BkZWYuY29tIiwicHciOiIxMTExMSIsImlhdCI6MTczOTA1NTk2NCwiZXhwIjoxNzM5MDU4NTY0fQ.QMMPGTZYuoG3Ud8d67QYM8gDqKm3DWg69n7Eoi84IKM",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n  \"product_uuid\": \"a45942da-0357-11f0-aef7-e22b07804780\",\n  \"fund_uuids\": [\n    {\n      \"fund_uuid\": \"a457e6d5-0357-11f0-aef7-e22b07804780\",\n      \"weight\": 100\n    }\n  ]\n}\n"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "/user/account/balances",
+      "method": "GET",
+      "endpoint": "http://127.0.01:8080/user/account/balances",
+      "params": [],
+      "headers": [
+        {
+          "key": "userId",
+          "value": "2",
+          "active": true,
+          "description": ""
+        }
+      ],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1biI6ImFiY0BkZWYuY29tIiwicHciOiIxMTExMSIsImlhdCI6MTczOTA1NTk2NCwiZXhwIjoxNzM5MDU4NTY0fQ.QMMPGTZYuoG3Ud8d67QYM8gDqKm3DWg69n7Eoi84IKM",
+        "authActive": true
+      },
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "11",
+      "name": "/user/account/check-deposit",
+      "method": "POST",
+      "endpoint": "http://127.0.01:8080/user/account/open",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "bearer",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1biI6ImFiY0BkZWYuY29tIiwicHciOiIxMTExMSIsImlhdCI6MTczOTA1NTk2NCwiZXhwIjoxNzM5MDU4NTY0fQ.QMMPGTZYuoG3Ud8d67QYM8gDqKm3DWg69n7Eoi84IKM",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n  \"product_uuid\": \"abc-123\",\n  \"fund_uuids\": [\n    {\n      \"fund_uuid\": \"ccc-444\",\n      \"weight\": 100\n    }\n  ]\n}\n"
+      },
+      "requestVariables": [],
+      "responses": {}
+    }
+  ],
+  "auth": {
+    "authType": "none",
+    "authActive": true
+  },
+  "headers": [],
+  "_ref_id": "coll_m8dezwkn_5515441f-5431-4f76-a87a-6d5fd091c844"
+}

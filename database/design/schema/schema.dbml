@@ -1,0 +1,124 @@
+Table user {
+  id unsigned [pk, increment]
+  name_title varchar(16) [not null]
+  name_first varchar(255) [not null]
+  name_last varchar(255) [not null]
+  email varchar(255) [unique, not null]
+
+  indexes {
+    (email) [name: "idx_user_email"]
+  }
+
+  Note: '''
+    For simplicity we assume "user"
+    is also a "Person or individual"
+  '''
+}
+
+Table employer {
+  id unsigned [pk, increment]
+  uuid char(36) [unique, not null, default: "UUID()"]
+  title varchar(255) [unique, not null, Note: "Employer name"]
+
+  indexes {
+    (`uuid`) [name: "idx_employer_uuid"]
+    (title) [name: "idx_employer_title"]
+  }
+}
+
+Table product {
+  id unsigned [pk, increment]
+  uuid char(36) [unique, not null, default: "UUID()"]
+  title varchar(255) [not null, Note: "Product name"]
+  type enum('direct', 'employer') [not null]
+  description text
+
+  // Can't have multiple of the
+  // same product name and type
+  indexes {
+    (`uuid`) [name: "idx_product_uuid"]
+    (title, type) [unique, name: "idx_product_title_type"]
+  }
+}
+
+Table user_account {
+  id unsigned [pk, increment]
+  user_id unsigned [ref: > user.id, not null]
+  product_id unsigned [ref: > product.id, not null]
+  total_investment decimal(10,2) [
+    default: 0.0,
+    note: "CHECK (total_investment >= 0)"
+  ]
+  current_balance decimal(10,2) [
+    default: 0.0,
+    note: "CHECK (current_balance >= 0)"
+  ]
+
+  // User can't have more than one of
+  // the same product
+  indexes {
+    (user_id, product_id) [unique]
+    (user_id) [name: "idx_user_account_user"]
+  }
+}
+
+Table user_account_funds {
+  id unsigned [pk, increment]
+  fund_id unsigned [ref: > fund.id]
+  user_account_id unsigned [ref: > user_account.id]
+  weight_pc decimal(10,2) [
+    default: 100.0,
+    note: "CHECK (weight_pc BETWEEN 0 AND 100)"
+  ]
+
+  indexes {
+    (user_account_id, fund_id) [
+      unique,
+      name: "idx_unique_user_fund",
+      note: "Restrict having >1 of the same fund_id for the same product account"
+    ]
+  }
+}
+
+Table user_account_transaction {
+  id unsigned [pk, increment]
+  account_id unsigned [ref: > user_account.id]
+  created datetime [not null]
+  amount decimal(10,2) [not null]
+
+  indexes {
+    (account_id, amount, created) [
+      unique,
+      name: "idx_unique_transaction_time",
+      note: "Restrict more than one transaction of same size at the same time"
+    ]
+  }
+}
+
+Table fund {
+  id unsigned [pk, increment]
+  uuid char(36) [
+    unique,
+    not null,
+    default: "UUID()",
+    note: "Use uuid for external lookups to remove record enumeration security risk"
+  ]
+  title varchar(255) [unique, not null]
+  description text
+
+  indexes {
+    (`uuid`) [name: "idx_fund_uuid"]
+    (title) [name: "idx_fund_title"]
+  }
+}
+
+Table employer_product {
+  id unsigned [pk, increment]
+  employer_id unsigned [ref: > employer.id]
+  product_id unsigned [ref: > product.id]
+
+  indexes {
+    (employer_id) [name: "idx_employer_product"]
+  }
+}
+

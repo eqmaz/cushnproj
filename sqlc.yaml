@@ -1,0 +1,15 @@
+# This file is used to configure sqlc
+# sqlc is a tool that generates Go code from SQL queries
+# We use it here to generate the DTOs / models for our database
+# It reads the genesis SQL schema and creates the DTO structs in /internal/models
+
+version: "2"
+sql:
+  - engine: "mysql"
+    queries: "./database/design/queries/"
+    schema: "./database/design/schema/schema.sql"
+    gen:
+      go:
+        package: "models"
+        out: "./internal/models"
+        emit_json_tags: false

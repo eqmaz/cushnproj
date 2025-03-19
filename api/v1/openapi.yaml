@@ -1,0 +1,93 @@
+openapi: 3.0.0
+info:
+  title: Simple API
+  version: "1.0"
+paths:
+
+  /isa-funds:
+    get:
+      summary: List of ISA funds
+      description: A list of Funds compatible with ISA products
+      operationId: "GetIsaFundList"
+      responses:
+        '200':
+          description: OK
+
+  /user/product/available:
+    get:
+      summary: Products available for the user
+      description: A list of products that the user can open accounts for
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json: {}
+
+  /user/account/balances:
+    get:
+      summary: List user's account balances
+      description: A list of the user's account balances across all products
+      operationId: "GetUserAccountBalances"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json: {}
+
+  /user/account/check-deposit:
+    post:
+      summary: Check if user can invest the desired amount
+      description: Checks if the user's desired deposit amount is within the allowed limits
+      operationId: "UserCheckDepositAmount"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account_id:
+                  type: integer
+                amount:
+                  type: number
+              required:
+                - account_id
+                - amount
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json: {}
+
+  /user/account/open-retail:
+    post:
+      summary: Opens a new account
+      description: Opens a new account for the specified product and user
+      operationId: "OpenRetailAccount"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_uuid:
+                  type: string
+                fund_uuids:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      fund_uuid:
+                        type: string
+                      weight:
+                        type: number
+              required:
+                - product_uuid
+                - fund_uuids
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json: {}
+

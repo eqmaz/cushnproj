@@ -1,0 +1,46 @@
+{
+    "service": {
+        "port": 8080,
+        "tls": {
+            "enabled": false,
+            "cert": "./cert.crt",
+            "key": "./cert.key"
+        },
+        "disable_router_greeting": true,
+        "max_funds_per_isa": 1,
+        "max_isa_annual_investment": 20000,
+        "max_isa_accounts_per_user": 1,
+        "isa_allowance_reset_date": "04-06"
+    },
+    "database": {
+        "name": "cushondb",
+        "host": "localhost",
+        "port": 3306,
+        "db_user": "root",
+        "db_pass": "localdev"
+    },
+    "console": {
+        "enabled": true,
+        "color": true
+    },
+    "logger": {
+        "enabled": true,
+        "level": "info",
+        "stream": "stdout"
+    },
+    "rateLimiter": {
+        "enabled": true,
+        "maxRequests": 60,
+        "timeframe": 30
+    },
+    "health": {
+        "http": {
+            "enabled": true,
+            "port": 8911
+        },
+        "grpc": {
+            "enabled": false,
+            "port": 8912
+        }
+    }
+}
