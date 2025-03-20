@@ -1,116 +1,37 @@
 package config
 
-//func TestGetConfigFileFromArgs(t *testing.T) {
-//    // Save the original command-line arguments
-//    origArgs := os.Args
-//
-//    // Test cases
-//    tests := []struct {
-//        name     string
-//        args     []string
-//        expected string
-//    }{
-//        {
-//            name:     "No cfg argument",
-//            args:     []string{"cmd"},
-//            expected: "",
-//        },
-//        {
-//            name:     "With cfg argument",
-//            args:     []string{"cmd", "-cfg=/path/to/cfg"},
-//            expected: "/path/to/cfg",
-//        },
-//    }
-//
-//    for _, tt := range tests {
-//        t.Run(tt.name, func(t *testing.T) {
-//            // Reset the flag package to its default state
-//            flag.CommandLine = flag.NewFlagSet(tt.name, flag.ExitOnError)
-//
-//            // Set the command-line arguments
-//            os.Args = tt.args
-//
-//            // Call the function
-//            result := getConfigFileFromArgs()
-//
-//            // Check the result
-//            if result != tt.expected {
-//                t.Errorf("expected %v, got %v", tt.expected, result)
-//            }
-//        })
-//    }
-//
-//    // Restore the original command-line arguments
-//    os.Args = origArgs
-//}
-//
-//func TestTryConfigFile(t *testing.T) {
-//    // Create a temporary directory
-//    tempDir, err := os.MkdirTemp("", "test")
-//    if err != nil {
-//        t.Fatalf("Failed to create temporary directory: %v", err)
-//    }
-//    defer func(path string) {
-//        err := os.RemoveAll(path)
-//        if err != nil {
-//            t.Fatalf("Failed to remove temporary directory: %v", err)
-//        }
-//    }(tempDir) // Clean up
-//
-//    // Create a readable temporary file
-//    readableFile, err := os.CreateTemp(tempDir, "readable")
-//    if err != nil {
-//        t.Fatalf("Failed to create readable file: %v", err)
-//    }
-//    defer func(readableFile *os.File) {
-//        err := readableFile.Close()
-//        if err != nil {
-//            t.Fatalf("Failed to close readable file: %v", err)
-//        }
-//    }(readableFile)
-//
-//    // Create a non-readable file
-//    nonReadableFile := filepath.Join(tempDir, "non_readable")
-//    err = os.WriteFile(nonReadableFile, []byte("data"), 0000) // No permissions
-//    if err != nil {
-//        t.Fatalf("Failed to create non-readable file: %v", err)
-//    }
-//
-//    // Test cases
-//    tests := []struct {
-//        name     string
-//        filePath string
-//        expected bool
-//    }{
-//        {
-//            name:     "Readable file",
-//            filePath: readableFile.Name(),
-//            expected: true,
-//        },
-//        {
-//            name:     "Non-readable file",
-//            filePath: nonReadableFile,
-//            expected: false,
-//        },
-//        {
-//            name:     "Non-existent file",
-//            filePath: filepath.Join(tempDir, "non_existent"),
-//            expected: false,
-//        },
-//    }
-//
-//    for _, tt := range tests {
-//        t.Run(tt.name, func(t *testing.T) {
-//            fullPath, result := tryConfigFile(tt.filePath)
-//            if result != tt.expected {
-//                t.Errorf("expected %v, got %v", tt.expected, result)
-//            }
-//            if result && fullPath != tt.filePath {
-//                resolvedPath, _ := filepath.Abs(tt.filePath)
-//                if fullPath != resolvedPath {
-//                    t.Errorf("expected full path %v, got %v", resolvedPath, fullPath)
-//                }
-//            }
-//        })
-//    }
-//}
+import (
+	"flag"
+	"os"
+	"testing"
+)
+
+// TestGetConfigFilePathFromArgs tests the getConfigFilePathFromArgs function
+func TestGetConfigFilePathFromArgs(t *testing.T) {
+	// Save original command-line arguments
+	origArgs := os.Args
+	defer func() { os.Args = origArgs }() // Restore original args after test
+
+	tests := []struct {
+		name     string
+		args     []string
+		expected string
+	}{
+		{"No flag provided", []string{"test_binary"}, ""},
+		{"Flag provided with value", []string{"test_binary", "--cfg", "config.json"}, "config.json"},
+		{"Flag provided with empty value", []string{"test_binary", "--cfg", ""}, ""},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			// Reset flags before parsing new ones
+			flag.CommandLine = flag.NewFlagSet(tc.name, flag.ContinueOnError)
+			os.Args = tc.args
+
+			result := getConfigFilePathFromArgs()
+			if result != tc.expected {
+				t.Errorf("Expected %q, got %q", tc.expected, result)
+			}
+		})
+	}
+}

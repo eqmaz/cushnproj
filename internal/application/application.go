@@ -8,6 +8,7 @@ import (
 	"syscall"
 	"time"
 
+	"cushon/internal/application/apperr"
 	"cushon/internal/application/cfg"
 	"cushon/internal/router"
 	"cushon/pkg/config"
@@ -39,7 +40,7 @@ func NewApp(logger *logger.Logger) *App {
 // SetConfigs loads the application configuration from the defaults, cfg.json file and environment variables
 func (app *App) SetConfigs() error {
 	// Set up the error catalogue
-	e.SetCatalogue(errorMap)
+	e.SetCatalogue(apperr.GetErrorMap())
 
 	configFilePath, err := config.GetConfigFilePath(None[string](), config.DefaultPreferences())
 	if err != nil {
@@ -233,8 +234,4 @@ func (app *App) Serve() {
 	}
 
 	c.Successf("Application started on port " + portStr)
-}
-
-func GetErrorMap() map[string]string {
-	return errorMap
 }

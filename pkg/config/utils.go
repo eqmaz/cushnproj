@@ -1,6 +1,9 @@
 package config
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 // SetNestedValue sets a nested map value given a dot-notation key ("http_server.port")
 func SetNestedValue(cfg map[string]interface{}, path string, val interface{}) {
@@ -22,6 +25,14 @@ func SetNestedValue(cfg map[string]interface{}, path string, val interface{}) {
 
 // GetNestedValue retrieves a nested value using dot notation
 func GetNestedValue(cfg map[string]interface{}, path string) interface{} {
+
+	// If the path is empty, return the entire config
+	// could just return nil?
+	if path == "" {
+		fmt.Println("🔍 DEBUG: Empty path detected, returning full config")
+		return cfg
+	}
+
 	keys := strings.Split(path, ".")
 	var current interface{} = cfg
 	for _, key := range keys {

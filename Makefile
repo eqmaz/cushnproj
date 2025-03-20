@@ -20,8 +20,9 @@ help:
 	echo "  make build-min       - Compile the Go project with -ldflags=\"-s -w\" and output the binary"
 	echo "  make clean           - Remove the compiled binary"
 	echo "  make start           - Start (run) the already compiled binary (doesn't build or migrate)"
-	echo "  make test            - Run tests"
-	echo "  make test-cover      - Run tests with coverage"
+	echo "  make test-unit       - Run unit tests"
+	echo "  make test-cover      - Run unit tests with coverage"
+	echo "  make test-int        - Run the integration tests"
 	echo "  make update          - Update all packages in all subdirectories, tidy and verify"
 	echo "  make local-db-up     - Start local database using docker-compose"
 	echo "  make local-db-dn     - Stop local database using docker-compose"
@@ -69,16 +70,21 @@ gen-models:
 	fi
 	sqlc generate
 
-test:
+test-unit:
 	@echo "Running unit tests..."
 	go test -v ./...
 
 # Test coverage target
 .PHONY: test-cover
 test-cover:
+	@echo "Running unit tests with coverage..."
 	go test -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out
 	rm coverage.out
+
+test-int:
+	@echo "Running integration tests..."
+	go test -v -tags=integration ./tests/integration/
 
 .PHONY: build
 build:

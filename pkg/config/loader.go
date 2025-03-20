@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 func finalConfigMerge(target, source map[string]interface{}) {
@@ -21,13 +22,8 @@ func finalConfigSetValue(cfg map[string]interface{}, key string, val interface{}
 // LoadConfig loads the configuration following this order of precedence:
 // Defaults -> Config File -> Environment Variables (priority configurable in preferences).
 func LoadConfig(configFilePath string, prefs Preferences, defaults map[string]interface{}, configStruct interface{}) error {
-	//finalConfig := make(map[string]interface{})
-
 	// Start with defaults
 	finalConfig := defaults
-	//for key, val := range defaults {
-	//    finalConfigSetValue(finalConfig, key, val)
-	//}
 
 	// Load from file if provided
 	if configFilePath := resolveConfigFilePath(configFilePath); configFilePath != "" {
@@ -72,13 +68,14 @@ func resolveConfigFilePath(userPath string) string {
 	}
 	// default search locations
 	possiblePaths := []string{
+		"./config/config.json",
 		"./config.json",
-		"./cfg/config.json",
 	}
 
 	for _, path := range possiblePaths {
 		if _, err := os.Stat(path); err == nil {
-			return path
+			absPath, _ := filepath.Abs(path) // Convert to absolute path
+			return absPath
 		}
 	}
 	return ""

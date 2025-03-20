@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	// This will remove verbose full-path log lines when printing backtraces and errors
+	// This will remove verbose full-path log lines when printing backtraces and apperr
 	// We only need to show filenames relative to the project root
 	e.SetFilePathTrimPoint("/cushon")
 

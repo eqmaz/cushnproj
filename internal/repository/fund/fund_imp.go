@@ -20,6 +20,7 @@ func (r *fundRepository) GetAvailableFunds(ctx context.Context) ([]models.Fund, 
 	return result, nil
 }
 
+// GetFundIdByUuid returns a primary key id from a given UUID, from the fund table
 func (r *fundRepository) GetFundIdByUuid(ctx context.Context, uuid string) (uint64, error) {
 	var id uint64
 	query := `

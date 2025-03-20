@@ -1,4 +1,4 @@
-package application
+package apperr
 
 var errorMap = map[string]string{
 	"eNcF01": "No valid cfg file found",
@@ -8,4 +8,8 @@ var errorMap = map[string]string{
 	"eAcEx1": "Customer already has a retail ISA account",
 	"eAcEx2": "Account does not belong to the user",
 	"eIafId": "Insufficient allowance for ISA deposit",
+}
+
+func GetErrorMap() map[string]string {
+	return errorMap
 }

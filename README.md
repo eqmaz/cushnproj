@@ -42,11 +42,21 @@ to satisfy the brief.
 - API documentation (HTML and .MD versions) is generated from the openapi spec
   - They live in /docs/api
 
+## Test runners
+- Integration test: ``make test-int``"
+- Unit test: ``make test-unit``"
+
+## Integration tests
+There are generally 2 ways to go:
+  - Testing the API endpoints directly (Slower, more coverage)
+  - Testing the service layer directly (Faster, less organic)
+
+For this project I've set up a simple endpoints-level test runner to showcase that appraoch. 
+
 ### Known issues / what's missing
 - Database mocking for repository unit tests
 - Repository mocking for service unit tests
 - Service and Router mocking for endpoint unit tests
-- A full integration test suite in /integration_tests
 - A full docker-compose setup for production
 
 

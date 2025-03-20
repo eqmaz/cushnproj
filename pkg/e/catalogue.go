@@ -1,7 +1,7 @@
 package e
 
 // ErrorMap is a map of error codes to error messages
-// These errors can then be called by e.FromCode("e12345")
+// These apperr can then be called by e.FromCode("e12345")
 type ErrorMap map[string]string
 
 // catalogue is a map of error codes to error messages which can be used by the application

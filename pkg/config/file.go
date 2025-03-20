@@ -12,6 +12,9 @@ import (
 
 // TryConfigFile validates existence and readability of cfg file
 func tryConfigFile(path string) (string, bool) {
+	if path == "" {
+		return "", false
+	}
 	fullPath, err := filepath.Abs(path)
 	if err != nil {
 		return "", false
